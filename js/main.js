@@ -28,16 +28,17 @@ $(document).ready(function () {
             song: "ENTER SANDMAN"
         }];
 
-    function closeWindow() {
+    function closeWindow($item) {
+        $item.append($('<hr>'));
         $('.window').remove();
     }
 
-    function showInfo(author, song) {
+    function showInfo(author, song, $item) {
         // console.log(author, song);
         let $window = $(`<section class="window"><h3>${author}</h3><p>${song}</p></section>`);
         let $btn = $('<button class="close">Close window</button>')
         $btn.click(function () {
-            closeWindow();
+            closeWindow($item);
         });
         $window.append($btn);
         $('body').append($window);
@@ -45,11 +46,10 @@ $(document).ready(function () {
 
     for (let i = 0; i < playList.length; i++) {
         let $btn = $('<button  class="show_inf">Show Info</button>');
-        $btn.click(function () {
-            showInfo(playList[i].author, playList[i].song);
-        });
-
         let $item = $(`<li> ${playList[i].author} ${playList[i].song} </li>`);
+        $btn.click(function () {
+            showInfo(playList[i].author, playList[i].song, $item);
+        });
         $item.append($btn);
         $('.list').append($item);
     }
